@@ -36,25 +36,9 @@ namespace :wiki do
   end
 
   task :sync_all => :environment do |task, args|
-    Rake::Task['wiki:sync'].execute(url: 'https://www65.atwiki.jp/sakura-arms/pages/38.html')
-    Rake::Task['wiki:sync'].execute(url: 'https://www65.atwiki.jp/sakura-arms/pages/39.html')
-    Rake::Task['wiki:sync'].execute(url: 'https://www65.atwiki.jp/sakura-arms/pages/40.html')
-    Rake::Task['wiki:sync'].execute(url: 'https://www65.atwiki.jp/sakura-arms/pages/41.html')
-    Rake::Task['wiki:sync'].execute(url: 'https://www65.atwiki.jp/sakura-arms/pages/42.html')
-    Rake::Task['wiki:sync'].execute(url: 'https://www65.atwiki.jp/sakura-arms/pages/43.html')
-    Rake::Task['wiki:sync'].execute(url: 'https://www65.atwiki.jp/sakura-arms/pages/44.html')
-    Rake::Task['wiki:sync'].execute(url: 'https://www65.atwiki.jp/sakura-arms/pages/71.html')
-    Rake::Task['wiki:sync'].execute(url: 'https://www65.atwiki.jp/sakura-arms/pages/79.html')
-    Rake::Task['wiki:sync'].execute(url: 'https://www65.atwiki.jp/sakura-arms/pages/93.html')
-    Rake::Task['wiki:sync'].execute(url: 'https://www65.atwiki.jp/sakura-arms/pages/95.html')
-    Rake::Task['wiki:sync'].execute(url: 'https://www65.atwiki.jp/sakura-arms/pages/117.html')
-    Rake::Task['wiki:sync'].execute(url: 'https://www65.atwiki.jp/sakura-arms/pages/118.html')
-    Rake::Task['wiki:sync'].execute(url: 'https://www65.atwiki.jp/sakura-arms/pages/13.html')
-    Rake::Task['wiki:sync'].execute(url: 'https://www65.atwiki.jp/sakura-arms/pages/16.html')
-    Rake::Task['wiki:sync'].execute(url: 'https://www65.atwiki.jp/sakura-arms/pages/17.html')
-    Rake::Task['wiki:sync'].execute(url: 'https://www65.atwiki.jp/sakura-arms/pages/18.html')
-    Rake::Task['wiki:sync'].execute(url: 'https://www65.atwiki.jp/sakura-arms/pages/20.html')
-    Rake::Task['wiki:sync'].execute(url: 'https://www65.atwiki.jp/sakura-arms/pages/21.html')
+    [13, 16, 17, 18, 20, 21, 38, 39, 40, 41, 42, 43, 44, 71, 79, 93, 95, 117, 118].each do |page_num|
+      Rake::Task['wiki:sync'].execute(url: "https://www65.atwiki.jp/sakura-arms/pages/#{page_num}.html")
+    end
   end
 
   task :export => :environment do |task, args|
