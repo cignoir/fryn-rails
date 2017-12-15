@@ -1,7 +1,7 @@
 class CreateCards < ActiveRecord::Migration[5.1]
   def change
     create_table :cards do |t|
-      t.references :goddess, foreign_key: true
+      t.string :megami
       t.string :no
       t.string :name
       t.string :main_type
@@ -12,6 +12,7 @@ class CreateCards < ActiveRecord::Migration[5.1]
       t.string :osame
       t.string :cost
       t.text :description
+      t.string :url
 
       t.timestamps
     end
