@@ -10,6 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20171215081446) do
+
+  create_table "cards", force: :cascade do |t|
+    t.integer "goddess_id"
+    t.string "no"
+    t.string "name"
+    t.string "main_type"
+    t.string "sub_type"
+    t.string "range"
+    t.string "damage_aura"
+    t.string "damage_life"
+    t.string "osame"
+    t.string "cost"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["goddess_id"], name: "index_cards_on_goddess_id"
+  end
+
+  create_table "goddesses", force: :cascade do |t|
+    t.string "name"
+    t.string "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 end
