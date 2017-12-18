@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/cignoir/tsukue.git
+  revision: 8b8cedbe15ebbf605064700ef409f2d0e8791bb1
+  specs:
+    tsukue (0.1.0)
+      activesupport
+      nokogiri
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -141,6 +149,7 @@ DEPENDENCIES
   rails (~> 5.1.4)
   selenium-webdriver
   sqlite3
+  tsukue!
   tzinfo-data
 
 BUNDLED WITH
