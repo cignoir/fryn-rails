@@ -18,7 +18,7 @@ namespace :wiki do
     end
   end
 
-  def parse(rows, megami_code, megami_fullname)
+  def parse(rows, megami_code, megami_fullname, is_yukihi = false)
     rows.map do |row|
       code = row[0].text
       raise 'no code' unless code
@@ -33,39 +33,24 @@ namespace :wiki do
       card.name = row[1].text
       card.main_type = row[2].text
       card.sub_type = row[3].text
-      card.kasa = '-'
-      card.range = row[4].text
-      card.damage_aura = row[5].text
-      card.damage_life = row[6].text
-      card.osame = row[7].text
-      card.cost = row[8].text
-      card.description = row[9].text
-      card
-    end.flatten.compact
-  end
 
-  def parse_yukihi(rows, megami_code, megami_fullname)
-    rows.map do |row|
-      code = row[0].text
-      raise 'no code' unless code
-
-      next unless code =~ /.+?-\d+.*/
-
-      card = Card.new
-      card.megami_code = megami_code
-      card.megami_name = megami_fullname.gsub(/\(.+?\)/, '').strip
-      card.megami_fullname = megami_fullname
-      card.code = code
-      card.name = row[1].text
-      card.main_type = row[2].text
-      card.sub_type = row[3].text
-      card.kasa = row[4].text
-      card.range = row[5].text
-      card.damage_aura = row[6].text
-      card.damage_life = row[7].text
-      card.osame = row[8].text
-      card.cost = row[9].text
-      card.description = row[10].text
+      if is_yukihi
+        card.kasa = row[4].text
+        card.range = row[5].text
+        card.damage_aura = row[6].text
+        card.damage_life = row[7].text
+        card.osame = row[8].text
+        card.cost = row[9].text
+        card.description = row[10].text
+      else
+        card.kasa = '-'
+        card.range = row[4].text
+        card.damage_aura = row[5].text
+        card.damage_life = row[6].text
+        card.osame = row[7].text
+        card.cost = row[8].text
+        card.description = row[9].text
+      end
       card
     end.flatten.compact
   end
@@ -82,7 +67,8 @@ namespace :wiki do
 
       table = Tsukue::Table.new(doc, 'id("wikibody")/table', {header: false, dup_rows: true, dup_cols: true})
       rows = table.rows.drop(2)
-      cards = megami_fullname.include?('ユキヒ') ? parse_yukihi(rows, megami_code, megami_fullname) : parse(rows, megami_code, megami_fullname)
+      is_yukihi = megami_fullname.include?('ユキヒ')
+      cards = parse(rows, megami_code, megami_fullname, is_yukihi)
       cards.each do |card|
         card.save!
         puts "#{megami_fullname},#{card.code}"
